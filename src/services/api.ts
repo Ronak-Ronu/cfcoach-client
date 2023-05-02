@@ -1,22 +1,15 @@
 import axios from "axios";
-import { ResponseType } from "types/api";
+import { ResponseType } from "@/types/api";
 
-// some method
-export function createSomething(
-	token: string,
-	title: string,
-): Promise<ResponseType> {
+// some method that return promise
+export function createSomething(token: string, title: string): Promise<ResponseType> {
 	return axios
-		.post(
-			"https://domain.com/some/endpoint",
-			JSON.stringify({ title: title }),
-			{
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: token,
-				},
-			}
-		)
+		.post("https://domain.com/some/endpoint", JSON.stringify({ title: title }), {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: token, // bearer token to authenticate with server
+			},
+		})
 		.then(function (response) {
 			return {
 				success: true,
@@ -24,6 +17,8 @@ export function createSomething(
 			};
 		})
 		.catch(function (error) {
+			// Check if server returned data otherwise return
+			// error status text or custom message in absence
 			return {
 				success: false,
 				res:

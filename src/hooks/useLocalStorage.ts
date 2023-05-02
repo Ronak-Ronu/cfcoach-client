@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+/*
+ * Usage: const [theme, setTheme] = useLocalStorage("theme", "light");
+ */
 
-const isServer = typeof window === "undefined";
+import { useEffect, useState } from "react";
 
 export default function useLocalStorage(key: string, initialValue: string) {
 	// State to store our value
@@ -8,9 +10,6 @@ export default function useLocalStorage(key: string, initialValue: string) {
 	const [storedValue, setStoredValue] = useState(() => initialValue);
 
 	const initialize = () => {
-		if (isServer) {
-			return initialValue;
-		}
 		try {
 			// Get from local storage by key
 			const item = window.localStorage.getItem(key);
@@ -25,15 +24,13 @@ export default function useLocalStorage(key: string, initialValue: string) {
 
 	/* prevents hydration error so that state is only initialized after server is defined */
 	useEffect(() => {
-		if (!isServer) {
-			setStoredValue(initialize());
-		}
+		setStoredValue(initialize());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	// Return a wrapped version of useState's setter function that ...
 	// ... persists the new value to localStorage.
-	const setValue = (value: string | Function) => {
+	const setValue = (value: string | ((val: string) => string)) => {
 		try {
 			// Allow value to be a function so we have same API as useState
 			const valueToStore = value instanceof Function ? value(storedValue) : value;
@@ -45,7 +42,7 @@ export default function useLocalStorage(key: string, initialValue: string) {
 			}
 		} catch (error) {
 			// A more advanced implementation would handle the error case
-			console.log(error);
+			console.log("useLocalStorage()", error);
 		}
 	};
 	return [storedValue, setValue] as const;
