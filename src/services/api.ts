@@ -1,10 +1,16 @@
 import axios from "axios";
 import { ResponseType } from "@/types/api";
+import { BACKEND_ENDPOINT } from "@/config";
 
-// some method that return promise
+/**
+ * Dummy API call that returns a promise
+ * @param token Some auth token
+ * @param title Title or data to use
+ * @returns Promise<ResponseType>
+ */
 export function createSomething(token: string, title: string): Promise<ResponseType> {
 	return axios
-		.post("https://domain.com/some/endpoint", JSON.stringify({ title: title }), {
+		.post(BACKEND_ENDPOINT + "/some/endpoint", JSON.stringify({ title: title }), {
 			headers: {
 				"Content-Type": "application/json",
 				Authorization: token, // bearer token to authenticate with server

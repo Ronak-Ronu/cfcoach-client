@@ -1,7 +1,7 @@
-import useTheme from "@/hooks/useTheme";
+import { useDocTheme } from "use-doc-theme";
 
 export default function ThemeToggler() {
-	const theme = useTheme();
+	const theme = useDocTheme();
 
 	return (
 		<div className="inline-flex">

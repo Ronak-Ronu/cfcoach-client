@@ -1,6 +1,6 @@
 import ThemeToggler from "@/components/utils/ThemeToggler";
 
-export default function App() {
+export default function Home() {
 	return (
 		<div className="container mx-auto my-12 text-center py-4">
 			<h4 className="italic my-5 text-xl font-black">Theme Toggler</h4>
@@ -12,6 +12,10 @@ export default function App() {
 			<h4 className="italic my-3 mt-6 text-xl font-black">Hooks</h4>
 			<p className="text-gray-600 dark:text-gray-400">
 				Some useful hooks are provided in <code>/src/hooks</code>.
+				<br />
+				<code>useDocTheme</code> and <code>useLocalStorage</code> are available as
+				part of a{" "}
+				<a href="https://www.npmjs.com/package/use-doc-theme">library</a>.
 			</p>
 
 			<h4 className="italic my-3 mt-6 text-xl font-black">Services</h4>
@@ -26,6 +30,8 @@ export default function App() {
 			<h3 className="italic my-3 mt-6 text-2xl font-black text-green-600 dark:text-green-300">
 				TailwindCSS &#10003;
 			</h3>
+			<br />
+			<a href="https://nzran.com">Check out more!</a>
 		</div>
 	);
 }
