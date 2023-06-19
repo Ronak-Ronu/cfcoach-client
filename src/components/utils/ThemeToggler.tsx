@@ -5,12 +5,14 @@ export default function ThemeToggler() {
 
 	return (
 		<div className="inline-flex">
-			<div className="darkmode-toggle">
-				<button
-					onClick={() => {
-						theme.toggle();
-					}}
-				></button>
+			<div
+				className="darkmode-toggle"
+				onClick={() => {
+					theme.toggle();
+				}}
+				title="Toggle Theme"
+			>
+				<button></button>
 			</div>
 			<button
 				className="ml-3 bg-gray-500/30 rounded-full px-3 text-sm font-medium"

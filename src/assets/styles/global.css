@@ -16,6 +16,12 @@
 		@apply dark:text-sky-300 text-sky-700;
 		@apply hover:underline hover:underline-offset-4;
 	}
+	pre {
+		@apply bg-gray-200 dark:bg-gray-300/10 rounded-md p-4 block text-left;
+	}
+	pre code {
+		@apply bg-transparent text-gray-900 dark:text-white whitespace-break-spaces;
+	}
 }
 
 @layer components {
@@ -37,7 +43,7 @@ body.dark {
 		rgba(93, 199, 225, 0.7) 30%,
 		rgba(255, 222, 30, 0.7)
 	);
-	@apply inline-block rounded-full w-12 h-7 text-sm relative transition-all;
+	@apply inline-block rounded-full w-12 h-7 text-sm relative transition-all cursor-pointer;
 }
 .dark .darkmode-toggle {
 	background: linear-gradient(

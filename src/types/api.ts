@@ -1,7 +1,9 @@
 /**
- * Type for success status and the response of request.
+ * Type for `post` object we get from API.
  */
-export interface ResponseType {
-	success: boolean;
-	res: string;
+export interface PostType {
+	userId: number;
+	id: number;
+	title: string;
+	body: string;
 }
