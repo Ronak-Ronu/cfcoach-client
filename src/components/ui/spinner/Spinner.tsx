@@ -1,6 +1,6 @@
 interface Props {
 	size: "sm" | "md" | "lg" | "xl";
-	color: "white" | "black" | "gray" | "primary";
+	color: "white" | "black" | "gray" | "primary" | "danger";
 }
 
 /**

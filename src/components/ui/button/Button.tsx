@@ -52,7 +52,7 @@ export default function Button(props: Props) {
 		white_no_border:
 			"border border-transparent shadow-none font-normal text-gray-700 outline-transparent hover:bg-gray-200 focus:bg-gray-200",
 		white_border:
-			"border border-gray-200 text-gray-700 hover:outline-gray-200 hover:border-gray-400 focus:outline-gray-200 focus:bg-gray-50",
+			"border border-gray-300 text-gray-700 hover:outline-gray-200 hover:border-gray-400 focus:outline-gray-200 focus:bg-gray-50",
 	};
 	const buttonSizing =
 		props.elementSize === "base"
@@ -69,6 +69,8 @@ export default function Button(props: Props) {
 	const iconColor =
 		props.elementInvert && props.elementStyle === "primary"
 			? "primary"
+			: props.elementInvert && props.elementStyle === "danger"
+			? "danger"
 			: props.elementInvert && props.elementStyle === "black"
 			? "black"
 			: props.elementStyle === "white_border" || props.elementStyle === "white_no_border"

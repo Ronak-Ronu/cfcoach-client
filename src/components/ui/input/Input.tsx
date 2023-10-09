@@ -5,7 +5,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 	elementId: string;
 	elementLabel: string;
 	elementInputType: "text" | "number" | "password" | "email";
-	elementHookFormRegister: UseFormRegister<FieldValues>;
+	elementHookFormRegister?: UseFormRegister<FieldValues>;
 	elementHookFormErrors?: FieldErrors<FieldValues>;
 	elementHookFormWatch?: UseFormWatch<FieldValues>;
 	elementHookFormWatchField?: string;
@@ -31,9 +31,9 @@ type ValidationType = {
  * @param {string} elementId ID of the input
  * @param {string} elementLabel Label of the input
  * @param {"text" | "number" | "password" | "email"} elementInputType Type of the input
- * @param {UseFormRegister<FieldValues>} elementHookFormRegister Hook form register
  *
  * Optional
+ * @param {UseFormRegister<FieldValues>} elementHookFormRegister Hook form register
  * @param {FieldErrors<FieldValues>} elementHookFormErrors Hook form errors
  * @param {UseFormWatch<FieldValues>} elementHookFormWatch Hook form watch
  * @param {string} elementHookFormWatchField Hook form watch field
@@ -128,7 +128,7 @@ export default function InputField({
 						className={styling}
 						aria-invalid={errors && errors[id] ? "true" : "false"}
 						rows={textareaSize || 2}
-						{...register(id, validation)}
+						{...(register && register(id, validation))}
 						defaultValue={rest["defaultValue"]}
 					/>
 				) : (
@@ -136,7 +136,7 @@ export default function InputField({
 						aria-invalid={errors && errors[id] ? "true" : "false"}
 						className={styling}
 						type={showPassword ? "text" : inputType}
-						{...register(id, validation)}
+						{...(register && register(id, validation))}
 						{...rest}
 					/>
 				)}

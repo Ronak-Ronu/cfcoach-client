@@ -38,19 +38,11 @@ body.dark {
  * Dark Mode Toggler
  */
 .darkmode-toggle {
-	background: linear-gradient(
-		135deg,
-		rgba(93, 199, 225, 0.7) 30%,
-		rgba(255, 222, 30, 0.7)
-	);
+	background: linear-gradient(135deg, rgba(93, 199, 225, 0.7) 30%, rgba(255, 222, 30, 0.7));
 	@apply inline-block rounded-full w-12 h-7 text-sm relative transition-all cursor-pointer;
 }
 .dark .darkmode-toggle {
-	background: linear-gradient(
-		225deg,
-		rgba(58, 182, 213, 0.3) 30%,
-		rgba(116, 58, 213, 0.4)
-	);
+	background: linear-gradient(225deg, rgba(58, 182, 213, 0.3) 30%, rgba(116, 58, 213, 0.4));
 }
 .darkmode-toggle button {
 	@apply bg-white;
@@ -112,8 +104,11 @@ body.dark {
 	--loader-size: 60px;
 	--loader-border-size: 5px;
 }
-.spinner-accent {
-	--loader-border-color: #0ea5e9;
+.spinner-primary {
+	--loader-border-color: #1457e1;
+}
+.spinner-danger {
+	--loader-border-color: #e53e3e;
 }
 .spinner-white {
 	--loader-border-color: white;
