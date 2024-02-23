@@ -1,11 +1,10 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
 import React from "react";
 import Spinner from "@/components/ui/spinner/Spinner";
 
 /**
  * Required
  * @param {string} elementChildren Text inside the button
- * @param {"primary" | "black" | "danger" | "white_opaque" | "no_border_opaque" | "border_opaque"} elementStyle Style of the button
+ * @param {"primary" | "black" | "danger"	| "primary_text_opaque" | "white_opaque" | "no_border_opaque" | "border_opaque"} elementStyle Style of the button
  * @param {"default" | "loading" | "done"} elementState State of the button
  * @param {"button" | "submit" | "reset"} elementType Type of the button
  *
@@ -19,10 +18,16 @@ import Spinner from "@/components/ui/spinner/Spinner";
 interface Props {
 	onClick?: () => void;
 	elementChildren: React.ReactNode;
-	elementStyle: "primary" | "black" | "danger" | "white_no_border" | "white_border";
+	elementStyle:
+		| "primary"
+		| "black"
+		| "danger"
+		| "primary_text_opaque"
+		| "white_no_border"
+		| "white_border";
 	elementState: "default" | "loading" | "done";
 	elementType: "button" | "submit" | "reset";
-	elementSize?: "xsmall" | "small" | "base" | "large";
+	elementSize?: "xs" | "sm" | "base" | "lg";
 	elementInvert?: boolean;
 	elementDisabled?: boolean;
 	elementWidth?: "auto" | "full";
@@ -53,15 +58,17 @@ export default function Button(props: Props) {
 			"border border-transparent shadow-none font-normal text-gray-700 outline-transparent hover:bg-gray-200 focus:bg-gray-200",
 		white_border:
 			"border border-gray-300 text-gray-700 hover:outline-gray-200 hover:border-gray-400 focus:outline-gray-200 focus:bg-gray-50",
+		primary_text_opaque:
+			"text-primary-700 font-medium bg-white border-none shadow-none hover:outline-none hover:bg-primary-50 focus:bg-primary-50",
 	};
 	const buttonSizing =
 		props.elementSize === "base"
 			? "text-bb py-1.5 px-4"
-			: props.elementSize === "xsmall"
+			: props.elementSize === "xs"
 			? "text-[0.8rem] py-px px-1.5"
-			: props.elementSize === "small"
+			: props.elementSize === "sm"
 			? "text-sm py-0.5 px-2"
-			: props.elementSize === "large"
+			: props.elementSize === "lg"
 			? "text-base py-2.5 px-6"
 			: "text-bb py-1.5 px-2";
 	const buttonWidth = props.elementWidth === "full" ? "w-full" : "";
