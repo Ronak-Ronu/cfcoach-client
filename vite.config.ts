@@ -7,4 +7,8 @@ export default defineConfig({
 	resolve: {
 		alias: [{ find: "@", replacement: "/src" }],
 	},
+	build: {
+		outDir: 'dist',
+	  },
+	base: '/'
 });

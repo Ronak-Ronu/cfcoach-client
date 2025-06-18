@@ -1,5 +1,4 @@
 import axios from "axios";
-import { BACKEND_ENDPOINT } from "@/config";
 
 /**
  * API call that returns a promise
@@ -9,9 +8,10 @@ import { BACKEND_ENDPOINT } from "@/config";
  *
  * @see https://tanstack.com/query/v3/docs/react/overview
  */
+
 export function getPosts(id: string) {
 	return axios
-		.get(BACKEND_ENDPOINT + "/posts/" + id, {
+		.get(process.env.VITE_BACKEND_API_URL + "/posts/" + id, {
 			headers: {
 				"Content-Type": "application/json",
 			},

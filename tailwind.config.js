@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-	darkMode: ["class"],
+	darkMode: "class",
 	content: ["./src/**/*.{ts,tsx}"],
 	prefix: "",
 	theme: {
@@ -36,7 +36,6 @@ module.exports = {
 					foreground: "hsl(var(--destructive-foreground))",
 				},
 				muted: {
-					DEFAULT: "hsl(var(--muted))",
 					foreground: "hsl(var(--muted-foreground))",
 				},
 				accent: {
