@@ -52,7 +52,7 @@ export const Signup = () => {
             </label>
             <input
               id="name"
-              placeholder="John Doe"
+              placeholder="Your Name Coach!"
               className={`w-full px-3 py-2 border rounded-md bg-background text-foreground ${
                 errors.name ? 'border-destructive' : 'border-input'
               } focus:outline-none focus:ring-2 focus:ring-primary`}
@@ -67,7 +67,7 @@ export const Signup = () => {
             <input
               id="email"
               type="email"
-              placeholder="john@example.com"
+              placeholder="coachemail@something.com"
               className={`w-full px-3 py-2 border rounded-md bg-background text-foreground ${
                 errors.email ? 'border-destructive' : 'border-input'
               } focus:outline-none focus:ring-2 focus:ring-primary`}

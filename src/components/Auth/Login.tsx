@@ -52,7 +52,7 @@ export const Login = () => {
             <input
               id="email"
               type="email"
-              placeholder="john@example.com"
+              placeholder="youremail@something.com"
               className={`w-full px-3 py-2 border rounded-md bg-background text-foreground ${
                 errors.email ? 'border-destructive' : 'border-input'
               } focus:outline-none focus:ring-2 focus:ring-primary`}
