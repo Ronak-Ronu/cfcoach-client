@@ -100,14 +100,23 @@ VITE_FIREBASE_APP_ID=VITE_FIREBASE_APP_ID
 ```bash
 npm run dev
 ```
+## Screencasts
+<video src="/screenshots/cfcoach.webm" controls width="600"></video>
 
-## Screenshots 
-![alt text](/screenshots/image.png)
-![alt text](/screenshots/image-1.png)
-![alt text](/screenshots/image-5.png)
-![alt text](/screenshots/image-2.png)
-![alt text](/screenshots/image-3.png)
-![alt text](/screenshots/image-4.png)
-![alt text](/screenshots/image-6.png)
-![alt text](/screenshots/image-7.png)
-![alt text](/screenshots/image-8.png)
+or
+
+<a href="https://youtu.be/o3uH1qxa7i0">
+  Youtube
+</a>
+
+## Screenshots
+![alt text1](/screenshots/image.png)
+![alt text2](/screenshots/image-1.png)
+![alt text3](/screenshots/image-5.png)
+![alt text4](/screenshots/image-2.png)
+![alt text5](/screenshots/image-3.png)
+![alt text6](/screenshots/image-4.png)
+![alt text7](/screenshots/image-6.png)
+![alt text8](/screenshots/image-7.png)
+![alt text9](/screenshots/image-8.png)
+
