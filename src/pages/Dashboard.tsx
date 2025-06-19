@@ -8,10 +8,12 @@ import { Student, StudentFormData } from '@/types';
 import { useNavigate } from 'react-router-dom';
 import ThemeToggle from '@/components/utils/ThemeToggler';
 import { exportToCSV, exportToPDF } from '../components/utils/exportUtils';
+import { useToast } from '@/components/toast-provider';
 
 
 export const Dashboard = () => {
   const { logout } = useAuth();
+  const { toast } = useToast()
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [editingStudent, setEditingStudent] = useState<Student | null>(null);
@@ -35,7 +37,6 @@ export const Dashboard = () => {
     },
   });
 
-  // Mutation to validate Codeforces handle
   const validateHandleMutation = useMutation<
     { status: string; result?: any; comment?: string },
     Error,
@@ -50,6 +51,7 @@ export const Dashboard = () => {
     onError: () => {
       // console.error('Handle validation failed:', err);
       setHandleValidationError('Failed to validate Codeforces handle');
+      toast('Failed to validate Codeforces handle', 'error');
     },
   });
 
@@ -60,10 +62,12 @@ export const Dashboard = () => {
       reset();
       setServerError('');
       setHandleValidationError('');
+      toast('Student Added', 'success');
     },
     onError: (err) => {
-      console.error('Create student failed:', err);
+      // console.error('Create student failed:', err);
       setServerError(err.message || 'Failed to create student');
+      toast('Failed to create student', 'error');
     },
   });
 
@@ -75,10 +79,12 @@ export const Dashboard = () => {
       reset();
       setServerError('');
       setHandleValidationError('');
+      toast('Student Updated', 'success');
     },
     onError: (err) => {
       console.error('Update student failed:', err);
       setServerError(err.message || 'Failed to update student');
+      toast('Failed to update student', 'error');
     },
   });
 
@@ -87,10 +93,13 @@ export const Dashboard = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['students'] });
       setServerError('');
+      setHandleValidationError('');
+      toast('Student Deleted', 'success');
     },
     onError: (err) => {
       console.error('Delete student failed:', err);
       setServerError(err.message || 'Failed to delete student');
+      toast('Failed to delete student', 'error');
     },
   });
 
@@ -99,10 +108,13 @@ export const Dashboard = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['students'] });
       setServerError('');
+      setHandleValidationError('');
+      toast('Data Synced Successfully', 'success');
     },
     onError: (err) => {
       console.error('Sync failed:', err);
       setServerError(err.message || 'Failed to sync data');
+      toast('Failed to sync data', 'error');
     },
   });
 
@@ -320,7 +332,7 @@ export const Dashboard = () => {
               {students?.map((student) => (
                 <tr
                   key={student._id}
-                  className="border-t border-muted cursor-pointer hover:bg-muted/50"
+                  className="border-t border-muted cursor-pointer hover:bg-blue-900 hover:bg-opacity-20"
                   onClick={() => handleRowClick(student._id)}
                 >
                   <td className="p-4">{student.name}</td>

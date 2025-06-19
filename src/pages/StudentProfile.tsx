@@ -32,9 +32,9 @@ import {
 import { Button } from '@/components/ui/button';
 import { ChevronDown, ChevronUp, FileText, Loader2 } from 'lucide-react';
 import { exportStudentStatsToPDF } from '@/components/utils/exportUtils';
+import { useToast } from '@/components/toast-provider';
 
 
-// Register Chart.js components
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -48,7 +48,6 @@ ChartJS.register(
   ArcElement
 );
 
-// Define types for Codeforces API responses
 interface CodeforcesBlogEntry {
   id: number;
   title: string;
@@ -395,6 +394,7 @@ interface StudentProfileProps {
 // Main StudentProfile Component
 const StudentProfile = ({ student: propStudent }: StudentProfileProps) => {
   const { id } = useParams<{ id: string }>();
+  const { toast } = useToast()
   const [aiInsights, setAiInsights] = useState<{
     performance?: string;
     weakAreaPlan?: string;
@@ -439,6 +439,7 @@ const StudentProfile = ({ student: propStudent }: StudentProfileProps) => {
         return response.data.result.slice(0, 5) as CodeforcesBlogEntry[];
       } catch (e) {
         console.error('Failed to fetch blog entries:', e);
+        toast('Failed to fetch blog entries', 'error');
         return [];
       }
     },
@@ -456,7 +457,8 @@ const StudentProfile = ({ student: propStudent }: StudentProfileProps) => {
         );
         return response.data.result as CodeforcesRatingChange[];
       } catch (e) {
-        console.error('Failed to fetch rating history:', e);
+        // console.error('Failed to fetch rating history:', e);
+        toast('Failed to fetch rating history', 'error');
         return [];
       }
     },
@@ -474,6 +476,7 @@ const StudentProfile = ({ student: propStudent }: StudentProfileProps) => {
         return response.data.result[0] as CodeforcesUserInfo;
       } catch (e) {
         console.error('Failed to fetch user info:', e);
+        toast('Failed to fetch user info', 'error');
         return null;
       }
     },
@@ -706,9 +709,11 @@ const StudentProfile = ({ student: propStudent }: StudentProfileProps) => {
           performance: analysis,
           isGenerating: false 
         }));
+        toast('Performance analysis generated successfully', 'success');
       } catch (error) {
         setAiInsights(prev => ({ ...prev, isGenerating: false }));
-        console.error('Error generating analysis:', error);
+        // console.error('Error generating analysis:', error);
+        toast('Error generating performance analysis', 'error');
       }
     };
   
@@ -723,9 +728,11 @@ const StudentProfile = ({ student: propStudent }: StudentProfileProps) => {
           weakAreaPlan: plan,
           isGenerating: false 
         }));
+        toast('training plan generated successfully', 'success');
       } catch (error) {
         setAiInsights(prev => ({ ...prev, isGenerating: false }));
         console.error('Error generating weak area plan:', error);
+        toast('Error generating training plan', 'error');
       }
     };
   
@@ -738,9 +745,11 @@ const StudentProfile = ({ student: propStudent }: StudentProfileProps) => {
           dailyProblems: problems,
           isGenerating: false 
         }));
+        toast('Daily problem set generated successfully', 'success');
       } catch (error) {
         setAiInsights(prev => ({ ...prev, isGenerating: false }));
         console.error('Error generating daily problems:', error);
+        toast('Error generating daily problems', 'error');
       }
     };
   
@@ -792,10 +801,13 @@ const StudentProfile = ({ student: propStudent }: StudentProfileProps) => {
           <Button 
           onClick={async () => {
             setIsExporting(true);
+            toast('Exporting Complete Stats in PDF', 'info');
             try {
               await exportStudentStatsToPDF(student);
+              toast('Stats Exported successfully', 'success');
             } catch (error) {
               console.error("Export failed:", error);
+              toast('Stats Export failed', 'error');
             } finally {
               setIsExporting(false);
             }
