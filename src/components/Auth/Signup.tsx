@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios, { AxiosError } from '@/lib/axios';
 import { AuthResponse } from '@/types';
+import { useToast } from '../toast-provider';
 
 interface SignupFormData {
   name: string;
@@ -13,6 +14,7 @@ interface SignupFormData {
 
 export const Signup = () => {
   const navigate = useNavigate();
+  const { toast } = useToast()
   const {
     register,
     handleSubmit,
@@ -34,8 +36,10 @@ export const Signup = () => {
     }  catch (err) {
       if (err instanceof AxiosError) {
         setError(err.response?.data?.message || 'Login failed');
+        toast(err.response?.data?.message || 'Login failed', 'error');
       } else {
         setError('Login failed');
+        toast('Login failed', 'error');
       }
     }
   };
