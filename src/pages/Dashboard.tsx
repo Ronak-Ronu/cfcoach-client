@@ -62,7 +62,7 @@ export const Dashboard = () => {
       reset();
       setServerError('');
       setHandleValidationError('');
-      toast('Student Added', 'success');
+      toast('Student Added and Notified via mail', 'success');
     },
     onError: (err) => {
       // console.error('Create student failed:', err);

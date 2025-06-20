@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import axios, { AxiosError } from '@/lib/axios';
 import { AuthResponse } from '@/types';
 import { useToast } from '../toast-provider';
+import { Loader2 } from 'lucide-react'; 
 
 interface LoginFormData {
   email: string;
@@ -25,8 +26,12 @@ export const Login = () => {
     },
   });
   const [error, setError] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onSubmit = async (data: LoginFormData) => {
+    setIsLoading(true); 
+    setError('');
+    
     try {
       const res = await axios.post<AuthResponse>('/auth/login', data);
       localStorage.setItem('token', res.data.token);
@@ -35,11 +40,12 @@ export const Login = () => {
       if (err instanceof AxiosError) {
         setError(err.response?.data?.message || 'Login failed');
         toast(err.response?.data?.message || 'Login failed', 'error');
-        
       } else {
         setError('Login failed');
         toast('Login failed', 'error');
       }
+    } finally {
+      setIsLoading(false); 
     }
   };
 
@@ -87,13 +93,21 @@ export const Login = () => {
           </div>
           <button
             type="submit"
-            className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary"
+            disabled={isLoading}
+            className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
-            Log In
+            {isLoading ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Logging in...
+              </>
+            ) : (
+              'Log In'
+            )}
           </button>
         </form>
         <p className="text-center text-sm text-muted-foreground">
-          Don’t have an account?{' '}
+          Don't have an account?{' '}
           <Link to="/signup" className="text-primary hover:underline">
             Sign up
           </Link>

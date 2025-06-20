@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import axios, { AxiosError } from '@/lib/axios';
 import { AuthResponse } from '@/types';
 import { useToast } from '../toast-provider';
+import { Loader2 } from 'lucide-react';
 
 interface SignupFormData {
   name: string;
@@ -27,20 +28,26 @@ export const Signup = () => {
     },
   });
   const [error, setError] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onSubmit = async (data: SignupFormData) => {
+    setIsLoading(true);
+    setError('');
+    
     try {
       const res = await axios.post<AuthResponse>('/auth/signup', data);
       localStorage.setItem('token', res.data.token);
       navigate('/dashboard');
-    }  catch (err) {
+    } catch (err) {
       if (err instanceof AxiosError) {
-        setError(err.response?.data?.message || 'Login failed');
-        toast(err.response?.data?.message || 'Login failed', 'error');
+        setError(err.response?.data?.message || 'Signup failed');
+        toast(err.response?.data?.message || 'Signup failed', 'error');
       } else {
-        setError('Login failed');
-        toast('Login failed', 'error');
+        setError('Signup failed');
+        toast('Signup failed', 'error');
       }
+    } finally {
+      setIsLoading(false); 
     }
   };
 
@@ -105,9 +112,17 @@ export const Signup = () => {
           </div>
           <button
             type="submit"
-            className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary"
+            disabled={isLoading}
+            className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
-            Sign Up
+            {isLoading ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Signing up...
+              </>
+            ) : (
+              'Sign Up'
+            )}
           </button>
         </form>
         <p className="text-center text-sm text-muted-foreground">
