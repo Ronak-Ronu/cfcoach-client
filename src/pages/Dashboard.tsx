@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import ThemeToggle from '@/components/utils/ThemeToggler';
 import { exportToCSV, exportToPDF } from '../components/utils/exportUtils';
 import { useToast } from '@/components/toast-provider';
+import { Loader } from '@/components/ui/Loader';
 
 
 export const Dashboard = () => {
@@ -163,11 +164,11 @@ export const Dashboard = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       queryClient.invalidateQueries({ queryKey: ['students'] });
-    }, 60000); // Poll every 60 seconds
+    }, 60000);
     return () => clearInterval(interval);
   }, [queryClient]);
 
-  if (isLoading) return <div className="text-foreground">Loading...</div>;
+  if (isLoading) return <div className="text-foreground"><Loader/></div>;
   if (error) return <div className="text-destructive">Error loading students: {error.message}</div>;
 
   return (

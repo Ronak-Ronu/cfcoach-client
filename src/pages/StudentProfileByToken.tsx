@@ -4,6 +4,7 @@ import axios from '@/lib/axios';
 import { Student } from '@/types';
 import StudentProfile from './StudentProfile';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Loader } from '@/components/ui/Loader';
 
 const StudentProfileByToken = () => {
   const { token } = useParams<{ token: string }>();
@@ -16,7 +17,7 @@ const StudentProfileByToken = () => {
     },
   });
 
-  if (isLoading) return <div className="text-foreground">Loading...</div>;
+  if (isLoading) return <div className="text-foreground"><Loader/></div>;
   if (error) return <div className="text-destructive">Error: {error.message}</div>;
   if (!student) return <div className="text-destructive">Invalid or expired profile link</div>;
 

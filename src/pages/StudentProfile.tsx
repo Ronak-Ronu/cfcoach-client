@@ -33,6 +33,7 @@ import { ChevronDown, ChevronUp, FileText, Loader2 } from 'lucide-react';
 import { exportStudentStatsToPDF } from '@/components/utils/exportUtils';
 import { useToast } from '@/components/toast-provider';
 import { TypingEffect } from '@/components/TypingEffect';
+import { Loader } from '@/components/ui/Loader';
 
 
 ChartJS.register(
@@ -485,7 +486,7 @@ const StudentProfile = ({ student: propStudent }: StudentProfileProps) => {
   });
 
 
-  if (isLoading) return <div className="text-foreground">Loading...</div>;
+  if (isLoading) return <div className="text-foreground"><Loader/></div>;
   if (error) return <div className="text-destructive">Error: {error.message}</div>;
   if (!student) return <div className="text-destructive">Student not found</div>;
 

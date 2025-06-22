@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/auth';
+import { Loader } from './ui/Loader';
 
 export const ProtectedRoute = () => {
   const { verifyToken } = useAuth();
@@ -15,7 +16,7 @@ export const ProtectedRoute = () => {
   }, [verifyToken]);
 
   if (isAuthenticated === null) {
-    return <div className="text-foreground">Loading...</div>;
+    return <div className="text-foreground"><Loader/></div>;
   }
 
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
