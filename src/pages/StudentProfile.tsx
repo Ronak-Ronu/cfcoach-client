@@ -21,7 +21,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import axiosPublic from 'axios';
 import * as d3 from 'd3';
 import { useEffect, useRef, useState } from 'react';
-import DOMPurify from 'dompurify';
 import ThemeToggle from '@/components/utils/ThemeToggler';
 import { 
   analyzePerformance, 
@@ -33,6 +32,7 @@ import { Button } from '@/components/ui/button';
 import { ChevronDown, ChevronUp, FileText, Loader2 } from 'lucide-react';
 import { exportStudentStatsToPDF } from '@/components/utils/exportUtils';
 import { useToast } from '@/components/toast-provider';
+import { TypingEffect } from '@/components/TypingEffect';
 
 
 ChartJS.register(
@@ -85,6 +85,7 @@ interface CodeforcesUserInfo {
   handle: string;
   titlePhoto: string; 
 }
+
 
 // Heatmap Component
 const Heatmap = ({
@@ -394,7 +395,7 @@ interface StudentProfileProps {
 // Main StudentProfile Component
 const StudentProfile = ({ student: propStudent }: StudentProfileProps) => {
   const { id } = useParams<{ id: string }>();
-  const { toast } = useToast()
+  const { toast } = useToast();
   const [aiInsights, setAiInsights] = useState<{
     performance?: string;
     weakAreaPlan?: string;
@@ -896,25 +897,52 @@ const StudentProfile = ({ student: propStudent }: StudentProfileProps) => {
               </div>
 
               {aiInsights.activeTab === 'performance' && aiInsights.performance && (
-                <div 
-                  className="p-4 border rounded-lg bg-card/50"
-                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(aiInsights.performance) }}
+              <div className="p-4 border rounded-lg bg-card/50 min-h-32">
+                <TypingEffect 
+                  text={aiInsights.performance} 
+                  speed={50} 
+                  wordDelay={100}
+                  punctuationDelay={30}
                 />
-              )}
+                {aiInsights.isGenerating && (
+                  <div className="mt-2 text-sm text-muted-foreground flex items-center">
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  </div>
+                )}
+              </div>
+            )}
 
-              {aiInsights.activeTab === 'weakness' && aiInsights.weakAreaPlan && (
-                <div 
-                  className="p-4 border rounded-lg bg-card/50"
-                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(aiInsights.weakAreaPlan) }}
-                />
-              )}
+            {aiInsights.activeTab === 'weakness' && aiInsights.weakAreaPlan && (
+              <div className="p-4 border rounded-lg bg-card/50 min-h-32">
+                <TypingEffect 
+                  text={aiInsights.weakAreaPlan} 
+                  speed={50} 
+                  wordDelay={100}
+                  punctuationDelay={300}
+                /> 
+                {aiInsights.isGenerating && (
+                  <div className="mt-2 text-sm text-muted-foreground flex items-center">
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  </div>
+                )}
+              </div>
+            )}
 
-              {aiInsights.activeTab === 'daily' && aiInsights.dailyProblems && (
-                <div 
-                  className="p-4 border rounded-lg bg-card/50"
-                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(aiInsights.dailyProblems) }}
-                />
-              )}
+            {aiInsights.activeTab === 'daily' && aiInsights.dailyProblems && (
+              <div className="p-4 border rounded-lg bg-card/50 min-h-32">
+                <TypingEffect 
+                  text={aiInsights.dailyProblems} 
+                  speed={50} 
+                  wordDelay={100}
+                  punctuationDelay={300}
+                /> 
+                {aiInsights.isGenerating && (
+                  <div className="mt-2 text-sm text-muted-foreground flex items-center">
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  </div>
+                )}
+              </div>
+            )}
             </CardContent>
           )}
         </Card>
